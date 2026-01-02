@@ -1,0 +1,26 @@
+- name: Post Install Playbook
+  hosts: localhost
+  become: true
+  vars:
+    apt_packages:
+      - apt-transport-https
+      - software-properties-common
+      - zip
+      - unzip
+      - dconf-cli
+      - vim
+      - curl
+      - htop
+      - tree
+      - tilix
+      - zsh
+      - jq
+      - yq
+
+  tasks:
+    - name: Install apt packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      loop: "{{ apt_packages }}"
